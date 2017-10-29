@@ -1,0 +1,228 @@
+<!DOCTYPE>
+<html>
+<canvas id="gamecanvas"></canvas>
+<script>
+
+
+
+const canvas = document.getElementById("gamecanvas");
+const ctx = canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const bgimage = new Image();
+bgimage.src = "http://happyhalloweensite.com/wp-content/uploads/2017/09/Halloween-Background.jpg";
+
+const vampire = new Image();
+vampire.src = "http://downloadicons.net/sites/default/files/vampire-icons-67587.png";
+const floorY = canvas.height - vampire.height;
+
+const blood = new Image();
+blood.src = "https://s-media-cache-ak0.pinimg.com/originals/84/03/ea/8403ea52491569a336dbb9ccb74aca7e.png";
+
+const numPoints = 3;
+
+const sunisbad = new Image();
+sunisbad.src = "http://www.iconarchive.com/download/i43438/oxygen-icons.org/oxygen/Status-weather-clear.ico";
+const random = function(num) {
+          return Math.floor(Math.random() * num)+1; 
+        };
+
+ const enemies = [];
+
+const gameData = {
+ vampire: {
+x: 200,
+y: floorY,
+//y: 200,
+img: vampire,
+width: 113,
+height: 113,
+xDelta: 0,
+yDelta: 0
+},
+  blood: {
+              x       : 300,
+              y       : 300,
+              width   : 150,
+              height  : 250,
+              img     : blood,
+              xDelta  : 2,
+              yDelta  : 2
+}, 
+};
+
+
+
+
+/*
+ const updateData = function() {
+const vampire = gameData.vampire;
+if (vampire.yDelta !== 0){
+                        vampire.y = vampire.y - vampire.yDelta;
+                    if(vampire.y <= maxJumpheight){
+                            vampire.yDelta = -vampire.yDelta;
+                    } else if(vampire.y >= floorY) {
+                                vampire.y = floorY;
+                                vampire.yDelta = 0;
+                      }
+}
+                };
+
+if(vampire.yDelta !==0) {
+vampire.y = vampire.y - vampire.yDelta;
+*/
+
+
+
+
+
+
+  
+  
+  const maxJumpheight = floorY - (gameData.vampire.height*3); 
+        const leftKey = 37;
+        const upKey = 38;
+        const rightKey = 39;
+        const downKey = 40;
+
+	
+addEventListener('keydown', function(event) {
+    
+            const vampire = gameData.vampire;
+    
+            if(event.keyCode === rightKey) {
+              vampire.x = vampire.x + 10;
+                if(vampire.x >= canvas.width - vampire.width){
+              vampire.x = 0; 
+                }
+            }
+              else if(event.keyCode === leftKey) {
+                  vampire.x = vampire.x - 18;
+          
+            
+              } 
+              else if (event.keyCode === upKey) {
+                  if(vampire.yDelta === 0) {
+                      vampire.yDelta = 3;
+                      vampire.y -= vampire.yDelta;
+                  }
+                 
+              }
+      else if (event.keyCode === downKey) {
+                  vampire.y = vampire.y + vampire.yDelta;
+                  if(vampire.y >= canvas.height - vampire.height) {
+                    vampire.y = 0;
+                  }
+              }
+        }, false); 
+
+ const forEach = function(arr, func){
+            const helper = function(index){
+                if (index === arr.length){
+                return;
+                }
+          
+                func(arr[index]);
+          
+                helper(index + 1);
+            };
+            helper(0);
+          
+        };
+    
+        const createPoint = function(count, width, height) {
+       
+            if(count === 0) {
+                return;
+        }
+            enemies.push({
+              x      : random(width - 10), 
+              y      : random(height - 10), 
+              width  : 90,
+              height : 90,
+              xDelta : 4,
+              yDelta : 4,
+              img    : sunisbad
+            });
+      
+            createPoint(count-1, width, height);
+};
+      
+        createPoint(numPoints, canvas.width, canvas.height);
+
+
+const collision = function() { 
+            const blood = gameData.blood;
+            const vampire = gameData.vampire;
+      
+            if (vampire.x < blood.x + blood.width  && vampire.x + vampire.width  > blood.x &&
+                vampire.y < blood.y + blood.height && vampire.y + vampire.height > vampire.y) {
+                    alert("Congratulations!"); 
+              
+            }
+forEach(enemies, function(enemy){
+        
+                  if((hero.x <= enemy.x && enemy.x <= hero.x + hero.width) ||
+                      (hero.x <= enemy.x + enemy.width &&  enemy.width + enemy.x <= hero.x + hero.width)){
+                      if((hero.y <= enemy.y && enemy.y <= hero.y + hero.height) ||
+                          (hero.y <= enemy.y + enemy.height &&  enemy.height + enemy.y <= hero.y + hero.height)) {
+                              alert("Game Over!!!"); //you loose
+                      enemies.splice(0, enemies.length);
+              
+                      }
+                  }
+            });
+        };
+const draw = function() {
+ctx.drawImage(bgimage, 0, 0, canvas.width, canvas.height);
+
+const vampire = gameData.vampire;
+ctx.drawImage(vampire.img, vampire.x, vampire.y, vampire.width, vampire.height);
+
+const blood = gameData.blood;
+ctx.drawImage(blood.img, blood.x, blood.y, blood.width, blood.height);
+ 
+forEach(enemies, function (enemy) {
+                ctx.drawImage(enemies.push.img, enemy.x, enemy.y, enemy.width, enemy.height)
+            });
+        };
+      const update = function() {
+            forEach(enemies, function(enemy) { //onctopi going randomly
+                if(enemy.x >= canvas.width - enemy.width){
+                    enemy.xDelta = - random(6);
+                } else if(enemy.x <= 0){
+                      enemy.xDelta = random(6);
+                  }
+            
+                if(enemy.y >= canvas.height - enemy.height){
+                    enemy.yDelta = -6;
+                } else if(enemy.y <= 0){
+                      enemy.yDelta = 6;
+            }
+            enemy.x += enemy.xDelta;
+            enemy.y += enemy.yDelta;
+        
+            });
+const blood = gameData.blood; 
+  
+                if (blood.y >= canvas.height - blood.height){
+                    blood.yDelta = -2;
+                } else if (blood.y <= 0) {
+                    blood.yDelta = 2;
+                  }
+                blood.y = blood.y + blood.yDelta;
+                collision();
+            };
+
+const loop = function() {
+            draw();
+            update();
+            requestAnimationFrame(loop);
+    
+        };
+  
+        loop();
+  
+</script>
+<html>
