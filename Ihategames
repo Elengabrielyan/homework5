@@ -11,7 +11,7 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 const bgimage = new Image();
-bgimage.src = "http://happyhalloweensite.com/wp-content/uploads/2017/09/Halloween-Background.jpg";
+bgimage.src = "http://www.wallpaperup.com/uploads/wallpapers/2015/11/05/829280/big_thumb_fb5029f42388487a229175ef9f9bb97a.jpg";
 
 const vampire = new Image();
 vampire.src = "http://downloadicons.net/sites/default/files/vampire-icons-67587.png";
@@ -32,23 +32,22 @@ const random = function(num) {
 
 const gameData = {
  vampire: {
-x: 200,
-y: floorY,
-//y: 200,
-img: vampire,
-width: 113,
-height: 113,
-xDelta: 0,
-yDelta: 0
+              x: 222,
+              y: floorY,
+              img: vampire,
+              width: 113,
+              height: 113,
+              xDelta: 0,
+              yDelta: 0
 },
   blood: {
-              x       : 300,
-              y       : 300,
-              width   : 150,
-              height  : 250,
-              img     : blood,
-              xDelta  : 2,
-              yDelta  : 2
+              x: 300,
+              y: 300,
+              width: 150,
+              height: 250,
+              img: blood,
+              xDelta: 2,
+              yDelta: 2
 }, 
 };
 
