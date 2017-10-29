@@ -54,31 +54,6 @@ yDelta: 0
 
 
 
-
-/*
- const updateData = function() {
-const vampire = gameData.vampire;
-if (vampire.yDelta !== 0){
-                        vampire.y = vampire.y - vampire.yDelta;
-                    if(vampire.y <= maxJumpheight){
-                            vampire.yDelta = -vampire.yDelta;
-                    } else if(vampire.y >= floorY) {
-                                vampire.y = floorY;
-                                vampire.yDelta = 0;
-                      }
-}
-                };
-
-if(vampire.yDelta !==0) {
-vampire.y = vampire.y - vampire.yDelta;
-*/
-
-
-
-
-
-
-  
   
   const maxJumpheight = floorY - (gameData.vampire.height*3); 
         const leftKey = 37;
@@ -163,11 +138,11 @@ const collision = function() {
             }
 forEach(enemies, function(enemy){
         
-                  if((hero.x <= enemy.x && enemy.x <= hero.x + hero.width) ||
-                      (hero.x <= enemy.x + enemy.width &&  enemy.width + enemy.x <= hero.x + hero.width)){
-                      if((hero.y <= enemy.y && enemy.y <= hero.y + hero.height) ||
-                          (hero.y <= enemy.y + enemy.height &&  enemy.height + enemy.y <= hero.y + hero.height)) {
-                              alert("Game Over!!!"); //you loose
+                  if((gameData.vampire.x <= enemy.x && enemy.x <= gameData.vampire.x + gameData.vampire.width) ||
+                      (gameData.vampire.x <= enemy.x + enemy.width &&  enemy.width + enemy.x <= gameData.vampire.x + gameData.vampire.width)){
+                      if((gameData.vampire.y <= enemy.y && enemy.y <= gameData.vampire.y + gameData.vampire.height) ||
+                          (gameData.vampire.y <= enemy.y + enemy.height &&  enemy.height + enemy.y <= gameData.vampire.y + gameData.vampire.height)) {
+                              alert("Game Over"); 
                       enemies.splice(0, enemies.length);
               
                       }
@@ -184,7 +159,7 @@ const blood = gameData.blood;
 ctx.drawImage(blood.img, blood.x, blood.y, blood.width, blood.height);
  
 forEach(enemies, function (enemy) {
-                ctx.drawImage(enemies.push.img, enemy.x, enemy.y, enemy.width, enemy.height)
+                ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height)
             });
         };
       const update = function() {
