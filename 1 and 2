@@ -8,77 +8,76 @@ canvas.height=window.innerHeight;
 const rand = function(num){
 	return Math.floor(Math.random()*num+1);
 };
-const randDelta = function(val){
-	return Math.floor(Math.random()*val+20);
+const randDelta = function(value){
+	return Math.floor(Math.random()*value+60);
 };
 const Delta = [6,-6];
-const colorar = ["#540032", "#820333", "#C9283E", "#F0433A"]
-const createpoint = function(count, canvaswidth, canvasheight){
-	a=[];
-		const f= randDelta(40);
-	const recursion= function(val){
+const colorarray = ["#540032", "#820333", "#C9283E", "#F0433A"]
+const createpoint = function(count, canvasWidth, canvasHeight){
+	array=[];
+		const func= randDelta(40);
+	const recursion= function(value){
 	
-		if(val<=0){
+		if(value <= 0){
 			return "";
 		}
-		a.push({
-			width: 2.9,
-			height: 2.9,
-			x: rand(canvaswidth-2.9),
-			y: rand(canvasheight-2.9),
+		array.push({
+			width: 29,
+			height: 29,
+			x: rand(canvasWidth-2.9),
+			y: rand(canvasHeight-2.9),
 			xDelta: Delta[rand(2)-1],
 			yDelta: Delta[rand(2)-1],
-			color: colorar[rand(5)-1]
+			color: colorarray[rand(5)-1]
 		});
 
-		recursion(val-1);
+		recursion(value-1);
 	};
 	recursion(count);
-	return a;
+	return array;
 };
-	const point = createpoint(5,canvas.width,canvas.height);
-	const recDraw = function(){
-		context.clearRect(0,0,canvas.width,canvas.height);
-		const every = function(a,count){
-		if(count>= a.length){
+	const point = createpoint(5, canvas.width, canvas.height);
+	const draw = function(){
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		const every = function(array, count){
+		if(count>= array.length){
 			return;
 		}
-		context.fillStyle = a[count].color;
-		context.fillRect(a[count].x,a[count].y,a[count].width,a[count].height);
+		context.fillStyle = array[count].color;
+		context.fillRect(array[count].x, array[count].y, array[count].width, array[count].height);
 
-	every(a,count+1);
+	every(array,count+1);
 };
 	every(point,0);
 };
-const update = function() {
-	const ar = function(b,i) {
-		if(i === b.length){
+const updateData = function(){
+	const arr = function(n,index){
+		if(index === n.length){
 			return "";
 		}
-		if(b[i].x+b[i].width >=canvas.width || b[i].x < 0 ){
-			b[i].xDelta=-b[i].xDelta;
+		if(n[index].x+n[index].width >= canvas.width || n[index].x<0 ){
+			n[index].xDelta=-n[index].xDelta;
 		}
-		if(b[i].y+b[i].height >=canvas.height || b[i].y < 0 ){
-			b[i].yDelta=-b[i].yDelta;
+		if(n[index].y+n[index].height >= canvas.height || n[index].y<0 ){
+			n[index].yDelta=-n[index].yDelta;
 		}
-		b[i].x += b[i].xDelta;
-		b[i].y += b[i].yDelta;
-		ar(b,i+1);
+		n[index].x += n[index].xDelta;
+		n[index].y += n[index].yDelta;
+		arr(n,index+1);
 	};
-	ar(point,0);
+	arr(point,0);
 };
 
 const loop =  function() {
-	recDraw();
-	update();
+	draw();
+	updateData();
 
 	requestAnimationFrame(loop);
 };
 loop();
-//recDraw();
 
-createpoint(5,canvas.width,canvas.height)
-console.log(a);
+createpoint(15,canvas.width,canvas.height)
+console.log(array);
 
 </script>
 </html>
