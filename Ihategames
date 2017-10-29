@@ -111,13 +111,13 @@ addEventListener('keydown', function(event) {
                 return;
         }
             enemies.push({
-              x      : random(width - 10), 
-              y      : random(height - 10), 
-              width  : 90,
-              height : 90,
-              xDelta : 4,
-              yDelta : 4,
-              img    : sunisbad
+              x: random(width - 10), 
+              y: random(height - 10), 
+              width: 90,
+              height: 90,
+              xDelta: 4,
+              yDelta: 4,
+              img: sunisbad
             });
       
             createPoint(count-1, width, height);
